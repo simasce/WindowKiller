@@ -21,7 +21,7 @@ namespace WindowKiller
             this.TopMost = true;
 
             // Set transparency
-            this.BackColor = Color.LightSalmon; // Pick a color unlikely to be used
+            this.BackColor = Color.LightSalmon;
             this.TransparencyKey = Color.LightSalmon;
             this.AllowTransparency = true;
 
@@ -123,7 +123,7 @@ namespace WindowKiller
         {
             IsInKillMode = true;
             string procName = proc.ProcessName + ".exe";
-            DialogResult res = MessageBox.Show($"This will kill process {procName}\nAre you sure you want to continue?", 
+            DialogResult res = MessageBox.Show($"This will kill the following process: {procName}\nAre you sure you want to continue?", 
                 $"Kill {procName}?", 
                 MessageBoxButtons.YesNo, 
                 MessageBoxIcon.Warning, 

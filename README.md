@@ -1,6 +1,8 @@
 # WindowKiller
 
-**WindowKiller** is a utility for Windows that allows you to visually target and terminate running processes by clicking on their windows. It provides a transparent, full-screen overlay that highlights the window under your mouse cursor and displays its process name and current mouse coordinates. When you click, it prompts for confirmation and then kills the selected process.
+**WindowKiller** is a utility for Windows that allows you to visually target and terminate running processes by clicking on their windows.<br> 
+It provides a transparent, full-screen overlay that highlights the window under your mouse cursor and displays its process name and current mouse coordinates.<br>
+When you click on a window, it prompts for confirmation and then kills the targeted process.
 
 ## Features
 
@@ -14,17 +16,17 @@
 ## How It Works
 
 1. Launch the application. Administrator rights are highly suggested.
-2. The application will reside in your notification bar
-3. Start the overlay either by pressing `Ctrl+Home` or clicking on the taskbar icon directly
+2. The application will reside in your notification bar.
+3. Start the overlay either by pressing `Ctrl+Home` or clicking on the taskbar icon directly.
 4. The screen is covered by a transparent overlay.
 5. Move your mouse to highlight the window you want to target.
 6. The process name and mouse coordinates are shown at the bottom right.
 7. Click to select the window. A confirmation dialog appears.
 8. Confirm to terminate the process. The overlay closes automatically.
 
-Note: You can cancel the overlay any time by pressing `ESC` or `Right Mouse` button
+Note: You can cancel the overlay any time by pressing `ESC` or `Right Mouse` button.
 
-To exit the program, right-click the application icon in the navigation bar and select the option `Quit`
+To exit the program, right-click the application icon in the navigation bar and select the option `Quit`.
 
 ## Requirements
 
@@ -52,7 +54,7 @@ To exit the program, right-click the application icon in the navigation bar and 
 - **Form1.cs:** Main overlay logic, drawing, and process termination.
 - **WindowData:** Holds information about the targeted window and its process.
 - **WindowTargetParser:** Responsible for detecting the window under the cursor.
-- **GlobalKeyboardHook:** Responsible for handling hotkeys such as `Ctrl+Home` and `ESC`
+- **GlobalKeyboardHook:** Responsible for handling hotkeys such as `Ctrl+Home` and `ESC`.
 - **MainWindowHandler:** Handles form opening and application icon retrieval.
 
 ## Customization

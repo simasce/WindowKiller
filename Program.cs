@@ -67,6 +67,12 @@ namespace WindowKiller
             };
             contextMenu.Items.Add(quitMenuItem);
             icon.ContextMenuStrip = contextMenu;
+
+            // Show notification that the application has started
+            icon.BalloonTipTitle = "Window Killer";
+            icon.BalloonTipText = "Window Killer is now running in the background.\nPress Ctrl+Home to trigger the overlay.";
+            icon.BalloonTipIcon = ToolTipIcon.Info;
+            icon.ShowBalloonTip(3000);
         }
 
         private static void Icon_MouseClick(object? sender, MouseEventArgs e)
