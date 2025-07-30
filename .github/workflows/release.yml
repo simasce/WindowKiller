@@ -43,12 +43,22 @@ jobs:
           echo "COUNT=$count" >> $env:GITHUB_ENV
         shell: pwsh
 
-      - name: Set version tag
-        id: set_tag
+      - name: Set committer info from triggering commit
+        id: committer
         run: |
-          $tag = "${env:DATE}.$env:COUNT"
-          echo "TAG=$tag" >> $env:GITHUB_ENV
-          echo "Tag: $tag"
+          $commit_sha = "${{ github.sha }}"
+          $name = git log -1 --pretty=format:'%an' $commit_sha
+          $email = git log -1 --pretty=format:'%ae' $commit_sha
+          echo "COMMITTER_NAME=$name" >> $env:GITHUB_ENV
+          echo "COMMITTER_EMAIL=$email" >> $env:GITHUB_ENV
+        shell: pwsh
+
+      - name: Create tag as original committer
+        run: |
+          git config user.name "$env:COMMITTER_NAME"
+          git config user.email "$env:COMMITTER_EMAIL"
+          git tag $env:TAG
+          git push origin $env:TAG
         shell: pwsh
 
       - name: Create tag
