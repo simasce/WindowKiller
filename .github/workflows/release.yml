@@ -1,0 +1,88 @@
+name: Tag, Build, and Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tag-build-release:
+    runs-on: windows-latest
+
+    env:
+      DOTNET_NOLOGO: true
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Get repository owner
+        id: repo_owner
+        run: |
+          echo "OWNER=${{ github.repository_owner }}" >> $GITHUB_ENV
+
+      - name: Get current date (yyyy.MM.dd)
+        id: date
+        run: |
+          $date = Get-Date -Format "yyyy.MM.dd"
+          echo "DATE=$date" >> $env:GITHUB_ENV
+        shell: pwsh
+
+      - name: Get daily commit count
+        id: commit_count
+        run: |
+          # Get all commits for today (using the new date format)
+          $since = "$(Get-Date -Format 'yyyy-MM-ddT00:00:00')"
+          $until = "$(Get-Date -Format 'yyyy-MM-ddT23:59:59')"
+          $count = git rev-list --count --since="$since" --until="$until" HEAD
+          echo "COUNT=$count" >> $env:GITHUB_ENV
+        shell: pwsh
+
+      - name: Set version tag
+        id: set_tag
+        run: |
+          $tag = "${env:DATE}.$env:COUNT"
+          echo "TAG=$tag" >> $env:GITHUB_ENV
+          echo "Tag: $tag"
+        shell: pwsh
+
+      - name: Create tag
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git tag $env:TAG
+          git push origin $env:TAG
+        shell: pwsh
+
+      - name: Build and publish
+        run: |
+          $author = "${env:OWNER}"
+          $version = "${env:TAG}"
+          dotnet publish -c Release -r win-x64 --self-contained false /p:PublishSingleFile=true /p:AssemblyVersion=$version /p:FileVersion=$version /p:ProductVersion=$version /p:Company=$author /p:Authors=$author
+        shell: pwsh
+
+      - name: Find published files
+        id: find_files
+        run: |
+          $publishDir = Get-ChildItem -Path . -Recurse -Directory | Where-Object { $_.FullName -like "*\bin\Release\net8.0-windows\win-x64\publish" } | Select-Object -First 1
+          $exe = Get-ChildItem -Path $publishDir.FullName -Filter *.exe | Select-Object -First 1
+          $pdb = Get-ChildItem -Path $publishDir.FullName -Filter *.pdb | Select-Object -First 1
+          echo "EXE_PATH=$($exe.FullName)" >> $env:GITHUB_ENV
+          echo "PDB_PATH=$($pdb.FullName)" >> $env:GITHUB_ENV
+        shell: pwsh
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.TAG }}
+          name: Release ${{ env.TAG }}
+          files: |
+            ${{ env.EXE_PATH }}
+            ${{ env.PDB_PATH }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
