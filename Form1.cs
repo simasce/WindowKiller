@@ -103,9 +103,19 @@ namespace WindowKiller
 
         private void Form1_MouseClick(object? sender, MouseEventArgs e)
         {
-            if(CurrentWindowData != null)
+            if (IsInKillMode)
+                return;
+
+            if(e.Button == MouseButtons.Right)
             {
-                KillProcess(CurrentWindowData.Process);
+                this.Close();
+            }
+            else
+            {
+                if (CurrentWindowData != null)
+                {
+                    KillProcess(CurrentWindowData.Process);
+                }
             }
         }
 
