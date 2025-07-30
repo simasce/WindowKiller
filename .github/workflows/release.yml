@@ -36,20 +36,27 @@ jobs:
           echo "DATE=$date" >> $env:GITHUB_ENV
         shell: pwsh
 
-      - name: Get daily commit count
-        id: commit_count
+      - name: Calculate today's tag number
+        id: tag_number
         run: |
-          # Get all commits for today (using the new date format)
-          $since = "$(Get-Date -Format 'yyyy-MM-ddT00:00:00')"
-          $until = "$(Get-Date -Format 'yyyy-MM-ddT23:59:59')"
-          $count = git rev-list --count --since="$since" --until="$until" HEAD
-          echo "COUNT=$count" >> $env:GITHUB_ENV
+          git fetch --tags
+          $prefix = "${env:DATE}."
+          $tags = git tag --list "$prefix*"
+          if ($tags) {
+            $max = ($tags | ForEach-Object {
+              if ($_ -match "$prefix(\d+)$") { [int]$matches[1] } else { 0 }
+            } | Measure-Object -Maximum).Maximum
+            $next = $max + 1
+          } else {
+            $next = 1
+          }
+          echo "TAG_NUMBER=$next" >> $env:GITHUB_ENV
         shell: pwsh
 
       - name: Set version tag
         id: set_tag
         run: |
-          $tag = "${env:DATE}.$env:COUNT"
+          $tag = "${env:DATE}.${env:TAG_NUMBER}"
           echo "TAG=$tag" >> $env:GITHUB_ENV
           echo "Tag: $tag"
         shell: pwsh
