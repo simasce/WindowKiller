@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>WindowSlash.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="WindowSlash.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="WindowSlash.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="WindowSlash.ico" />
+  </ItemGroup>
+
+</Project>
