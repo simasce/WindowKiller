@@ -43,6 +43,14 @@ jobs:
           echo "COUNT=$count" >> $env:GITHUB_ENV
         shell: pwsh
 
+      - name: Set version tag
+        id: set_tag
+        run: |
+          $tag = "${env:DATE}.$env:COUNT"
+          echo "TAG=$tag" >> $env:GITHUB_ENV
+          echo "Tag: $tag"
+        shell: pwsh
+
       - name: Set committer info from triggering commit
         id: committer
         run: |
@@ -53,19 +61,14 @@ jobs:
           echo "COMMITTER_EMAIL=$email" >> $env:GITHUB_ENV
         shell: pwsh
 
-      - name: Create tag as original committer
+      - name: Create tag as GitHub Actions bot
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "$env:COMMITTER_NAME"
           git config user.email "$env:COMMITTER_EMAIL"
           git tag $env:TAG
-          git push origin $env:TAG
-        shell: pwsh
-
-      - name: Create tag
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git tag $env:TAG
+          git remote set-url origin https://x-access-token:${env:GITHUB_TOKEN}@github.com/${{ github.repository }}
           git push origin $env:TAG
         shell: pwsh
 
