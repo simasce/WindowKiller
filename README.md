@@ -65,7 +65,7 @@ Note: You can cancel the overlay any time by pressing `ESC` or `Right Mouse` but
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE.txt).
 
 ## Disclaimer
 
