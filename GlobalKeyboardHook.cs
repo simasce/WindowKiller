@@ -81,8 +81,11 @@ public static class GlobalKeyboardHook
         using (var curProcess = System.Diagnostics.Process.GetCurrentProcess())
         using (var curModule = curProcess.MainModule)
         {
-            return SetWindowsHookEx(WH_KEYBOARD_LL, proc,
-                GetModuleHandle(curModule.ModuleName), 0);
+            if(curModule != null)
+            {
+                return SetWindowsHookEx(WH_KEYBOARD_LL, proc, GetModuleHandle(curModule.ModuleName), 0);
+            }
         }
+        return IntPtr.Zero;
     }
 }

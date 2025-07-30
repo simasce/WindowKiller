@@ -1,6 +1,6 @@
 # WindowKiller
 
-**WindowKiller** is a utility for Windows that allows you to visually target and terminate running processes by clicking on their windows. It provides a transparent, full-screen overlay that highlights the window under your mouse cursor and displays its process name and coordinates. When you click, it prompts for confirmation and then kills the selected process.
+**WindowKiller** is a utility for Windows that allows you to visually target and terminate running processes by clicking on their windows. It provides a transparent, full-screen overlay that highlights the window under your mouse cursor and displays its process name and current mouse coordinates. When you click, it prompts for confirmation and then kills the selected process.
 
 ## Features
 
