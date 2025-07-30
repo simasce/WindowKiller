@@ -21,7 +21,7 @@ When you click on a window, it prompts for confirmation and then kills the targe
 4. The screen is covered by a transparent overlay.
 5. Move your mouse to highlight the window you want to target.
 6. The process name and mouse coordinates are shown at the bottom right.
-7. Click to select the window. A confirmation dialog appears.
+7. Click (or press `Delete` while hovering) to select the window. A confirmation dialog appears.
 8. Confirm to terminate the process. The overlay closes automatically.
 
 Note: You can cancel the overlay any time by pressing `ESC` or `Right Mouse` button.

@@ -119,6 +119,14 @@ namespace WindowKiller
             }
         }
 
+        public void TriggerKillProcess()
+        {
+            if (CurrentWindowData != null)
+            {
+                KillProcess(CurrentWindowData.Process);
+            }
+        }
+
         private void KillProcess(Process proc)
         {
             IsInKillMode = true;

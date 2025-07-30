@@ -51,6 +51,13 @@ public static class GlobalKeyboardHook
                         MainWindowHandler.Close();
                     }
                 }
+                else if(key == Keys.Delete)
+                {
+                    if (MainWindowHandler.IsOpen)
+                    {
+                        MainWindowHandler.TriggerKillProcess();
+                    }
+                }
             }
             else if (wParam == (IntPtr)WM_KEYUP)
             {

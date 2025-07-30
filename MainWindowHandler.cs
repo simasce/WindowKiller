@@ -43,6 +43,13 @@ namespace WindowKiller
                 Close();
         }
 
+        public static void TriggerKillProcess()
+        {
+            if(CurrentWindow != null)
+            {
+                CurrentWindow.TriggerKillProcess();
+            }
+        }
         public static Icon GetWindowIcon()
         {
             // Load WindowSlash.ico from embedded resources
