@@ -24,6 +24,8 @@
 
 Note: You can cancel the overlay any time by pressing `ESC` or `Right Mouse` button
 
+To exit the program, right-click the application icon in the navigation bar and select the option `Quit`
+
 ## Requirements
 
 - **.NET 8.0** or later

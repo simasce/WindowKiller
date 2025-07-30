@@ -42,7 +42,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Name = "Form1";
-            Text = "Simasce's Window Killer";
+            Text = "Window Killer";
             ResumeLayout(false);
         }
 

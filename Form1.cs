@@ -123,7 +123,12 @@ namespace WindowKiller
         {
             IsInKillMode = true;
             string procName = proc.ProcessName + ".exe";
-            DialogResult res = MessageBox.Show($"This will kill process {procName}\nAre you sure you want to continue?", $"Kill {procName}?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+            DialogResult res = MessageBox.Show($"This will kill process {procName}\nAre you sure you want to continue?", 
+                $"Kill {procName}?", 
+                MessageBoxButtons.YesNo, 
+                MessageBoxIcon.Warning, 
+                MessageBoxDefaultButton.Button1);
+
             if(res == DialogResult.Yes)
             {
                 proc.Kill(true);

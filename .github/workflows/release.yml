@@ -103,7 +103,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.TAG }}
-          name: Release ${{ env.TAG }}
+          name: ${{ github.event.repository.name }} ${{ env.TAG }}
           files: |
             ${{ env.EXE_PATH }}
             ${{ env.PDB_PATH }}
